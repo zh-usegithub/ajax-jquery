@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="/static/jquery.min.js"></script>
+<body>
+<script>
+    $(function(){
+      $("#btn").click(function(){
+             $.ajax({
+                    url:'/ajax/jquery_ajax_server/',
+                    type:'get',
+                    dataType:'json',
+                    async:true,
+                    success: function(data){
+                             console.log(data.name);
+                             console.log(data.age);
+                             $("#loading").hide(3000);//span标签3秒后隐藏
+                             $("#btn").removeAttr('disabled')//让btn按钮可以点击
+                    },
+                    error: function(){
+                            alert('server is busy !!!')
+                    },
+                    beforeSend: function(){
+                            $("#loading").show()//显示span标签
+                            $("#btn").attr({disabled:'disabled'})//让btn按钮不可点击
+                    }
+             })
+      })
+    })
+
+</script>
+<span id="loading" style="display:none">加载数据中，等待服务器响应</span>
+用户名：<input type="text" id="name">
+<button id="btn">jquery ajax</button>
+
+</body>
+</html>

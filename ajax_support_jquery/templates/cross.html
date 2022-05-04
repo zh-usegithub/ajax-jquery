@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="/static/jquery.min.js"></script>
+<body>
+<script>
+/*
+     1.原生的JS跨域方式
+    //跨域要用到的预留函数
+    function print(data){
+             console.log('server data is ' + data);
+    }
+    $(function(){
+    //点击按钮的时候会触发这个点击事件，事件内容是加载script标签，在加载标签的时候，会自动根据src的地址去请求内容，把src的值设置成跨域的url地址那么就可以解决跨域问题（因为加载script浏览器认为是安全的，即使是跨域也不会阻止请求的发送）
+        $("#btn").click(function(){
+                //json原生跨域
+                var body = document.getElementsByTagName("body")[0];//取到html中的body标签
+                var script = document.createElement("script");//创建xcript标签并且添加type、src属性
+                script.type = "text/javascript";
+                script.src = "http://localhost:8000/ajax/cross_server/?callback=print";
+                //把script标签插入到body里面
+                body.append(script)//script标签插入到body标签里面
+
+
+        })
+    })
+
+*/
+
+//2.jquery的跨域方式
+$(function(){
+     $("#btn").click(function(){
+                 $.ajax({
+                     url: 'http://localhost:8000/ajax/cross_server/',
+                     type:'get',//需要注意的是无论是原生的跨域方式还是jsonp这样的跨域方式，type的参数只接受get
+                 })
+     })
+})
+</script>
+<button id="btn">跨域请求</button>
+</body>
+</html>
